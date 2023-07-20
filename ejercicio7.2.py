@@ -1,68 +1,41 @@
 """
-     Dominó:
-        a) Escribir una función que indique si dos fichas de dominó encajan o no. Las fichas son
-        recibidas en dos tuplas, por ejemplo: (3,4) y (5,4)
-        b) Escribir una función que indique si dos fichas de dominó encajan o no. Las fichas son
-        recibidas en una cadena, por ejemplo: 3-4 2-5. Nota: utilizar la función split de las
-        cadenas.
+    Campaña electoral
+        a) Escribir una función que reciba una tupla con nombres, y para cada nombre imprima
+        el mensaje Estimado <nombre>, vote por mí.
+        b) Escribir una función que reciba una tupla con nombres, una posición de origen p y una
+        cantidad n, e imprima el mensaje anterior para los n nombres que se encuentran a partir
+        de la posición p.
+        c) Modificar las funciones anteriores para que tengan en cuenta el género del destinatario,
+        para ello, deberán recibir una tupla de tuplas, conteniendo el nombre y el género.
+
 """
 
-# Aclaración: se usa ciclo while en las dos funciones para no hacer iteraciones de mas. Con ciclo for se recorreria hasta el final aunque ya se sepa si coinciden las fichas.
+def saludar_nombres(tupla):
+    # a) Recibe una tupla con nombres e imprime un mensaje "Estimado <nombre>, vote por mí"
 
-def encajan_domino_tuplas(tupla1, tupla2):
-    # Recibe dos fichas de domino e indica si encajan o no.
+    for nombre, genero in tupla:
+        if genero == 'M':
+            print(f"Estimado {nombre}, vote por mí.")
+        else:
+            print(f"Estimada {nombre}, vote por mí.")
 
-    condicion = False
-    i = 0
-
-    while not condicion and i<2:
-        j = 0
-
-        while not condicion and j<2:
-            if tupla1[i]==tupla2[j]:
-                condicion = True
-            j+=1
-        
-        i+=1
-
-    if condicion:
-        print(f"Las piezas {tupla1} {tupla2} coinciden")
-    else:
-        print(f"Las piezas {tupla1} {tupla2} no coinciden")
-
-print("EJERCICIO CON TUPLAS:")
-encajan_domino_tuplas((3,4),(5,4))
-encajan_domino_tuplas((3,2),(5,4))
-encajan_domino_tuplas((3,3),(3,5))
+# saludar_nombres((("Joel","M"),("Sol","F"),("Graciela","F"),("Martin","M")))
+# print("-------------------------------------")
 
 
-print("-------------------------------------------------------------------------")
+def saludar_nombres_b(tupla, p, n):
+    # b) Recibe una tupla con nombres, una posición de origen p y una cantidad n, e imprima el mensaje anterior para los n nombres que se encuentran a partir de la posición p
 
-def encajan_domino_cadena(cadena):
-    # Recibe una cadena de caracteres con dos fichas de domino e indica si encajan o no.
+    while p<len(tupla) and n>0:
+        if n>0:
+            if tupla[p][1] == 'M':
+                print(f"Estimado {tupla[p]}, vote por mí.")
+            else:
+                print(f"Estimada {tupla[p]}, vote por mí.")
+        n-=1
+        p+=1
 
-    fichas = cadena.split(" ")
+saludar_nombres_b((("Joel","M"),("Sol","F"),("Martin","M"),("Graciela","F"),("Belen","F"),("Omar","M")),4,3)
+print("--------------------------------")
+saludar_nombres_b((("Joel","M"),("Sol","F"),("Martin","M"),("Graciela","F"),("Belen","F"),("Omar","M")),0,4)
 
-    condicion = False
-    ficha_1 = 0
-    ficha_2 = 1
-    i = 0
-    
-    while not condicion and i<3:
-        
-        j = 0
-        while not condicion and j<3:
-            if fichas[ficha_1][i]==fichas[ficha_2][j]:
-                condicion = True
-            j+=2
-        
-        i+=2
-
-    if condicion:
-        print(f"Las piezas {fichas[ficha_1]} {fichas[ficha_2]} coinciden")
-    else:
-        print(f"Las piezas {fichas[ficha_1]} {fichas[ficha_2]} no coinciden")
-
-print("EJERCICIO CON CADENA DE CARACTERES:")
-encajan_domino_cadena("3-4 2-5")
-encajan_domino_cadena("3-4 1-4")
